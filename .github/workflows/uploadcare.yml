@@ -1,0 +1,24 @@
+name: Upload images to Uploadcare
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Uploadcare CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/uploadcare/uploadcare-cli/main/scripts/install.sh | sh
+
+      - name: Upload images
+        env:
+          UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
+          UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
+        run: |
+          uploadcare file upload images/* 
