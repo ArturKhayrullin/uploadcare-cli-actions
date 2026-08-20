@@ -22,7 +22,6 @@ jobs:
           UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
         run: |
           uploadcare file upload images/* \
-            --store true \
             --dry-run \
-            --json mime_type
+            --json all
 
