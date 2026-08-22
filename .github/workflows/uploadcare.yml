@@ -31,13 +31,13 @@ jobs:
           invalid=$(echo "$result" | jq -r '
             .[]
             | select(
-                .mime_type != "image/jpeg" and
-                .mime_type != "image/png" and
-                .mime_type != "image/webp" and
-                .mime_type != "image/gif" and
-                .mime_type != "image/avif"
+                .content_type != "image/jpeg" and
+                .content_type != "image/png" and
+                .content_type != "image/webp" and
+                .content_type != "image/gif" and
+                .content_type != "image/avif"
               )
-            | "\(.filename): \(.mime_type)"
+            | "\(.filename): \(.content_type)"
           ')
       
           if [ -n "$invalid" ]; then
@@ -47,4 +47,4 @@ jobs:
           fi
       
           echo "All files passed MIME type validation."
-      
+
