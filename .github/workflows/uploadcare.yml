@@ -54,3 +54,13 @@ jobs:
         run: |
           result=$(uploadcare file upload images/* --json uuid,filename,mime_type)
           echo "results=$result" >> "$GITHUB_OUTPUT"
+
+      - name: Generate transformed URLs
+        env:
+          UPLOAD_RESULTS: ${{ steps.upload.outputs.results }}
+        run: |
+          echo "$UPLOAD_RESULTS" | jq -r '
+            .[]
+            | "\(.filename) -> https://ucarecdn.com/\(.uuid)/-/preview/800x600/"
+          '
+
