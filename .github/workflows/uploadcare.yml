@@ -51,7 +51,7 @@ jobs:
             UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
             UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
         run: |
-            uploadcare file upload images/* --json uuid,filename,content_type
+            uploadcare file upload images/* --json all
           
 
 
