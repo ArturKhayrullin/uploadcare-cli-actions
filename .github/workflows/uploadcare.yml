@@ -15,7 +15,6 @@ jobs:
       - name: Install Uploadcare CLI
         run: |
           curl -fsSL https://raw.githubusercontent.com/uploadcare/uploadcare-cli/main/scripts/install.sh | sh
-
       - name: Validate image types
         env:
           UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
@@ -37,7 +36,7 @@ jobs:
                 .content_type != "image/gif" and
                 .content_type != "image/avif"
               )
-            | "\(.filename): \(.content_type)"
+            | "\(.path): \(.content_type)"
           ')
       
           if [ -n "$invalid" ]; then
@@ -47,4 +46,5 @@ jobs:
           fi
       
           echo "All files passed MIME type validation."
+
 
