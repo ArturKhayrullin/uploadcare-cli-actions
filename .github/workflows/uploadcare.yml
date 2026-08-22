@@ -46,14 +46,12 @@ jobs:
           fi
       
           echo "All files passed MIME type validation."
-          - name: Upload images
-            env:
-              UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
-              UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
-            run: |
-              uploadcare file upload images/* \
-                --store true \
-                --json uuid,filename,content_type
+      - name: Upload images
+        env:
+            UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
+            UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
+        run: |
+            uploadcare file upload images/* --json uuid,filename,content_type
           
 
 
