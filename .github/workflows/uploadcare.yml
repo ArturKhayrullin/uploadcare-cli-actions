@@ -61,6 +61,6 @@ jobs:
         run: |
           echo "$UPLOAD_RESULTS" | jq -r '
             .[]
-            | "\(.filename) -> https://ucarecdn.com/\(.uuid)/-/preview/800x600/"
+            | "\(.filename) -> https://29mckibneg.ucarecd.net/\(.uuid)/-/preview/800x600/"
           '
 
