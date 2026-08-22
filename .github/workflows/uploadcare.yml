@@ -47,12 +47,10 @@ jobs:
       
           echo "All files passed MIME type validation."
       - name: Upload images
+        id: upload
         env:
             UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
             UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
         run: |
-            uploadcare file upload images/* --json uuid,filename,mime_type
-          
-
-
-
+          result=$(uploadcare file upload images/* --json uuid,filename,mime_type)
+          echo "results=$result" >> "$GITHUB_OUTPUT"
