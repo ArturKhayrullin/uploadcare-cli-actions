@@ -53,6 +53,7 @@ jobs:
             UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
         run: |
           result=$(uploadcare file upload images/* --json uuid,filename,mime_type)
+          echo "$result"
           echo "results=$result" >> "$GITHUB_OUTPUT"
 
       - name: Generate transformed URLs
