@@ -21,7 +21,30 @@ jobs:
           UPLOADCARE_PUBLIC_KEY: ${{ secrets.UPLOADCARE_PUBLIC_KEY }}
           UPLOADCARE_SECRET_KEY: ${{ secrets.UPLOADCARE_SECRET_KEY }}
         run: |
-          uploadcare file upload images/* \
+          result=$(uploadcare file upload images/* \
+            --store true \
             --dry-run \
-            --json all
-
+            --json all)
+      
+          echo "$result" | jq .
+      
+          invalid=$(echo "$result" | jq -r '
+            .[]
+            | select(
+                .mime_type != "image/jpeg" and
+                .mime_type != "image/png" and
+                .mime_type != "image/webp" and
+                .mime_type != "image/gif" and
+                .mime_type != "image/avif"
+              )
+            | "\(.filename): \(.mime_type)"
+          ')
+      
+          if [ -n "$invalid" ]; then
+            echo "The following files have unsupported MIME types:"
+            echo "$invalid"
+            exit 1
+          fi
+      
+          echo "All files passed MIME type validation."
+      
